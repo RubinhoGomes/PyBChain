@@ -1,6 +1,7 @@
 from Block import Block
 from Transaction import Transaction
-
+from Blockchain import Blockchain
+from Commands import Commands
 
 def printBlock(block):
     for b in block:
@@ -8,12 +9,16 @@ def printBlock(block):
 
 
 if __name__ == "__main__":
+    Commands.startMenu()
     transaction = []
     transaction.append(Transaction("Alice", "Bob", 100))
     transaction.append(Transaction("Bob", "Alice", 50))
-    block = [Block.genisisBlock()]
-    block.append(Block("0",  transaction, block[-1].nonce + 1))
-    block.append(Block("0", transaction, block[-1].nonce))
-    block.append(Block("0", transaction, block[-1].nonce))
-    block.append(Block("0", transaction, block[-1].nonce))
-    printBlock(block)
+    transaction.append(Transaction("Alice", "Bob", 100))
+    transactionSecond = []
+    transactionSecond.append(Transaction("Alice", "Bob", 100))
+
+    blockchain = Blockchain()
+    blockchain.addBlock(Block(transactionSecond))
+    blockchain.addBlock(Block(transaction, blockchain.block[-1].hash, blockchain.block[-1].nonce + 1 ))
+    blockchain.addBlock(Block(transaction, blockchain.block[-1].hash, blockchain.block[-1].nonce + 1 ))
+    blockchain.printBlock()
