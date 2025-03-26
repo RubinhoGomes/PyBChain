@@ -22,6 +22,5 @@ class Util:
         print(exception)
         print("An error has occurred, please try again")
         pause = input("Press any key to close the app...")
-        
         exit()
 
