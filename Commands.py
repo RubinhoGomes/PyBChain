@@ -1,44 +1,64 @@
+# Description: This file contains the class Commands that will be used to handle the user input
+# Author: Rubinho
+# File: Commands.py
+
+from Util import Util
+from Blockchain import Blockchain
+import os
+import time
+
+
 class Commands:
- 
-    def showBlockchain(blockchain):
-        for block in blockchain.block:
-            print(block)
-
-    def addTransaction(blockchain, transaction):
-        sender = self.inputs("Enter sender: ")
-        receiver = self.inputs("Enter receiver: ")
-        amount = self.inputs("Enter amount: ")
-        transaction.append(Transaction(sender, receiver, amount))
-        blockchain.addTransaction(transaction, len(blockchain.block) - 1)
-
-    def getData(typeOfData, message = "Enter option: "):
+    
+    def getData(message = "Enter option: "):
         option = None
-        while typeOfData != type(option):
+            
+        while type(option) != int:
             try:
                 option = int(input(message))
-            except ValueError:
-                print(f"Invalid input, insert a type: {typeOfData.__name__}")
+            except Exception as e:
+                Util.ErrorHandler(e)
         return option
     
+    def pauseMenu():
+        pause = input("Press any key to continue...")
+
+
     # TODO: Implement the necessary logic to select the correct option
-    def selectOption(option, typeOfOption):
+    def selectOption(blockchain, option):
         if(option == 1):
+            os.system("clear")
             print("Showing Blockchain")
+            blockchain.printBlock()
+            Commands.pauseMenu()
         elif option == 2:
-            pass
+            os.system("clear")
+            print("Mining Block")
+            blockchain.addBlock()
+            blockchain.printBlock()
+            Commands.pauseMenu()   
         elif option == 3:
             pass
         elif option == 4:
-            print("Exiting")
+            print("Exiting...")
+            time.sleep(2)
+            exit()
 
     #TODO: Implement the lines to make it prettier
-    # Implement the logic to receive the necessary data to show the blockchain
-    def startMenu():
-        print("1. Show Blockchain")
-        print("2. Mine Block")
-        print("3. Add Transaction")
-        print("4. Exit")
-        data = Commands.getData(type(1))
-        Commands.selectOption(data, type(1))
+    # Try to make this easiear to understand and make it easier to receive just a simple int 
+    def startMenu(blockchain):
+        data = None
+        while data != 4:
+            os.system("clear")
+            print("1. Show Blockchain")
+            print("2. Mine Block")
+            print("3. Add Transaction")
+            print("4. exit")
+            data = Commands.getData()
+            Commands.selectOption(blockchain, data)
 
+
+    def start():
+        blockchain = Blockchain()
+        Commands.startMenu(blockchain)
 
