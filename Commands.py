@@ -4,6 +4,7 @@
 
 from Util import Util
 from Blockchain import Blockchain
+import threading
 import os
 import time
 
@@ -53,12 +54,11 @@ class Commands:
             print("1. Show Blockchain")
             print("2. Mine Block")
             print("3. Add Transaction")
-            print("4. exit")
+            print("4. Exit")
             data = Commands.getData()
             Commands.selectOption(blockchain, data)
 
-
     def start():
         blockchain = Blockchain()
-        Commands.startMenu(blockchain)
-
+        blockthread = threading.Thread(target=Commands.startMenu, args=(blockchain,))
+        blockthread.start()

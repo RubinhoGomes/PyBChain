@@ -2,7 +2,7 @@ from Block import Block
 
 class Blockchain(Block):
     def __init__(self):
-        self.block = [Block(['Genesis Block'], [], 0, 0)]
+        self.block = [Block(['Genesis Block'], [], 0, 0, 0)]
         self.difficulty = 1
 
     def __post_init__(self):

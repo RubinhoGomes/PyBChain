@@ -16,6 +16,10 @@ class Util:
     @staticmethod
     def calculaTransactionHash(transaction):
         return sha256(str(transaction).encode()).hexdigest()
+    
+    @staticmethod
+    def calculateHash(*args) -> str:
+        return sha256(str(args).encode()).hexdigest()
 
     @staticmethod
     def ErrorHandler(exception):
