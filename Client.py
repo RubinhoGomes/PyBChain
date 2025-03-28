@@ -1,24 +1,20 @@
+from Network import Network, NetState
 import socket
+import sys
 
 class Client():
 
     def client():
         # Create a socket object
-        s = socket.socket()
-
-        # Get local machine name
-        host = socket.gethostname()
-        port = 12345
+        s = Network.socket
 
         # Connect to the server
-        s.connect((host, port))
-
-        msg = s.recv(1024)
+        s.connect((Network.host, Network.port))
 
         while True:
-            send = input("Send a message: ")
-            s.send(send.encode())
-            
+            data = s.recv(Network.size)
+            print(data.decode())
+            print(sys.getsizeof(data.decode()))
 
         s.close()
 

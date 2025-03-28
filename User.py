@@ -17,6 +17,13 @@ class User():
         self.hash = Util.calculateHash([str(self.id).encode, str(self.name).encode, str(self.balance).encode, str(self.pending).encode])
         self.transactions = []
 
+    def __str__(self):
+        return f"Username: {self.name}\nBalance: {self.balance}\nPending: {self.pending}\n"
+
+    def addTransaction(self, transaction):
+        self.transactions.append(transaction)
+
+
 user = User(1, "Rubinho")
 
 print(user)

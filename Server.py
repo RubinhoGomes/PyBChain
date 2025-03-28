@@ -1,5 +1,6 @@
 import socket
- 
+from Network import Network, NetState
+
 #TODO:[] Create the necessary methods to integrate the blockchain with client and server.
 #     [] No need to get to fancy, just make it work.
 #     [] If needed use the network file to implement repetitive methods. Like connect and IP
@@ -15,14 +16,10 @@ class Server():
 
     def server():
         # Create a socket object
-        s = socket.socket()
-
-        # Get local machine name
-        host = socket.gethostname()
-        port = 12345
+        s = Network.socket
 
         # Bind to the port
-        s.bind((host, port))
+        s.bind((Network.host, Network.port))
 
         # Now wait for client connection.
         s.listen(5)
@@ -34,10 +31,10 @@ class Server():
         print('Got connection from', addr)
 
         while True:
-            conn.send('Thank you for connecting'.encode())
-        
+            #conn.send('Thank you for connecting'.encode())
+            conn.send(str(NetState.PING).encode())
             # Receive the data           
-            data = conn.recv(1024)
+            data = conn.recv(Network.size)
             print(data.decode())
 
            # Close the connection
